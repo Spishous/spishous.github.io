@@ -7,8 +7,73 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Spishous</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body{
+            background-color: #0f1622;
+            color:whitesmoke;
+            text-align: center;
+        }
+        .content{
+            background-color: rgba(28, 39, 55, 0.5);
+            padding: 32px;
+            margin: .8em;
+            border-radius: 0.7em;
+            border-top: 1px solid #272735;
+            box-shadow: 0 2px 5px rgba(5, 5, 5, 0.4);
+        }
+        .profil_pic{
+            max-width: 50vw;
+            width: 180px;
+            object-fit: contain;
+            border-radius: 500px;
+            display: block;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+            animation: zoomfatein 1s forwards;
+        }
+        .cont_profil {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profil_pic.blur {
+    animation: zoomfatein 1.5s 100ms forwards cubic-bezier(.59,.1,.5,1.3), wavesize 2s 1.5s alternate-reverse infinite ease-in-out;
+    width: 190px;
+  position: absolute;
+  transform: scale(0);
+  filter: blur(50px);
+  padding: 40px;
+  z-index: 1;
+}
+@keyframes wavesize {
+    from{
+        transform: scale(0.9);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+@keyframes zoomfatein {
+    from{
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+    </style>
 </head>
 <body>
-    <h1>Test Page</h1>
+    <br>
+    <div class="cont_profil">
+        <img src="./public/profil.jpg" class="profil_pic blur">
+        <img src="./public/profil.jpg" class="profil_pic">
+    </div>
+    <h2>Lucas Rayan</h1>
+    <div class="content"></div>
 </body>
 </html>
