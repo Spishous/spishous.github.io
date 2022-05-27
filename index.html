@@ -5,28 +5,144 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Spishous</title>
-		<link rel="preload" href="./public/profil.jpg" as="image">
-    <link rel="stylesheet" href="style.css?8">
+    <link rel="preload" href="./public/profil.jpg" as="image">
+    <link rel="preconnect" href="./public/css/style.css">
+    <link href="./public/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?10">
+    <link rel="stylesheet" href="./public/css/uicons.css">
 </head>
-<body>
-    <br>
-    <div class="cont_profil">
-        <img src="./public/profil.jpg" class="profil_pic blur">
-        <img src="./public/profil.jpg" class="profil_pic">
+<body id="#top">
+    <div id="effect">
+        <div parallax-y=-50>
+            <img src="./public/toons.png">
+        </div>
+
+    </div>
+    <div style="height: 80vh;position: relative;">
+        <div class="sticky">
+            <div class="cont_profil">
+                <img src="./public/profil.jpg" class="profil_pic blur">
+                <img src="./public/profil.jpg" class="profil_pic">
+            </div>
+            <h1>Rayan Lucas</h1>
+            <h4 id="writer"></h4>
+        </div>
+        <div id="diffusion" fade-in="220" fade-out="221">
+            <ul>
+            </ul>
+        </div>
+        <div id="scroll" fade-in="100" fade-out="110">
+            <i class="fi-ss fi-chevron-double-down"></i>
+        </div>
     </div>
     <div class="container">
-        <h1>Rayan Lucas</h1>
-        <h4>Développeur d'application web et mobile</h4>
-        <label>Profil</label>
-        <div class="content">
-            test
-        </div>
-        <label>Compétences</label>
-        <div class="content">
-            test
+        <div id="infos" fade-in="200" fade-out="200">
+            <label class="content-category">Profil</label>
+            <div class="content">
+                <h2>Qui suis-je ?</h2>
+                <p>Je suis quelqu'un de passionné qui à soif d'apprendre.
+                    <br>
+                    Je vis la vie en musique 🎶
+                    <br>Un peu de muscu à côté pour la forme 💪
+                    <br>J'ai toujours des projets plein la tête.. Et ne dis jamais non pour l'aventure !
+                </p>
+            </div>
+            <label class="content-category">Compétences</label>
+            <div class="content">
+                test
+            </div>
         </div>
     </div>
+    <script src="./public/script/writer.js"></script>
+    <script src="./public/script/effect.js"></script>
+    <script>
+        var PortfolioData=[];
+        var ListDiffusion=[];
+        var intervalDiffusion;
+        async function diffusion(){
+            let sleeper= (ms)=>{return new Promise(resolve => setTimeout(resolve, ms));}
+            if(ListDiffusion.length){
+                let diffEl=document.querySelector('#diffusion ul')
+                for(let i=0;i<ListDiffusion.length;i++){
+                    if(diffEl.children.length>0) {
+                        diffEl.children[diffEl.children.length-1].classList.remove('in');
+                    }
+                    diffEl.insertAdjacentHTML('beforeend','<li class="in">'+ListDiffusion[i]+'</li>');
+                    if(diffEl.children.length>5){
+                        diffEl.children[0].remove();
+                    }
+                    await sleeper(4000)
+                }
+                diffusion()
+            }
+        }
+    </script>
+    <script type="module">
 
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js'
+        import { getFirestore, collection,doc, updateDoc, getDocs,FieldValue } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js';
+
+        // TODO: Replace the following with your app's Firebase project configuration
+        // See: https://firebase.google.com/docs/web/learn-more#config-object
+        const firebaseConfig = {
+            apiKey: "AIzaSyCG9onc705CVHjmqqdmkMZmwo-yAZCUmRQ",
+            authDomain: "portfolio-2a2b5.firebaseapp.com",
+            projectId: "portfolio-2a2b5",
+            appId: "1:220405422415:web:4a61cbb8de2d512fd5cd3a"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const db = getFirestore(app);
+
+
+        // Get a list of cities from your database
+        async function getPortfolio(db) {
+            const portfolioCol = collection(db, "Data_portfolio");
+            const portfolioSnapshot = await getDocs(portfolioCol);
+            const portfolioList = portfolioSnapshot.docs.map(doc => doc.data());
+            return portfolioList;
+        }
+        async function addVisit(db,currentVisitor){
+            let id="2znmXWIZ3rIEN3ggwO67";
+            const portfolioRef = doc(db, "Data_portfolio", id);
+            await updateDoc(portfolioRef, {
+                Visitor: (currentVisitor+1)
+            });
+        }
+        getPortfolio(db).then(e=>{
+            PortfolioData=e[0];
+            if(PortfolioData){
+                ListDiffusion.push("<i class=\"fi-ss fi-users\"></i> "+PortfolioData.Visitor+" visiteurs sur le profil");
+                ListDiffusion.push("<i class=\"fi-bs fi-interactive\"></i> "+PortfolioData.Age+" années d'expériences");
+                ListDiffusion.push("<i class=\"fi-bs fi-checkbox\"></i> Plus de "+PortfolioData.Project+" projets réalisés");
+                if(isNewVisitor()){
+                    ListDiffusion[0]+=" <span class='new-visitor'>+ Vous</span>";
+                    addVisit(db,PortfolioData.Visitor)
+                }
+                diffusion()
+            }
+
+        })
+        function isNewVisitor(){
+            let visit=localStorage.getItem('visit')||0;
+            localStorage.setItem('visit',visit+1);
+            if(!visit){
+                console.log("Bienvenu")
+                return true;
+            }
+            return false;
+        }
+        // Initialize Cloud Firestore and get a reference to the service
+        /*const db = app.firestore();
+        db.collection("Data_portfolio").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc,`${doc.id} => ${doc.data()}`);
+            });
+        });*/
+    </script>
 </body>
 </html>
