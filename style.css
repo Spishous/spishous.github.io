@@ -10,7 +10,7 @@ body{
 }
 
 .content{
-  background-color: rgba(33, 44, 62, 0.8);
+  background-color: rgb(30, 41, 59);
   padding: 1.2em;
   margin-bottom: 1em;
   border-radius: 8px;
@@ -94,7 +94,7 @@ h4{
 }
 .hide-effet {
   opacity: 0;
-  transform: translateY(80px);
+  transform: translateY(40px);
 }
 #scroll {
   position: fixed;
@@ -160,6 +160,26 @@ h4{
   margin-left:5px;
   text-shadow: 0 1px 4px #1d2840;
   line-height: 1em;}
+hr {
+  width: 360px;
+  max-width: 100%;
+}
+.btn-classic {
+  background: #22679f;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px #15151e;
+  cursor: pointer;
+  transition: background;
+  color: white;
+  text-decoration: none;
+}
+.btn-classic:hover {
+  background: #2574b5;
+}
+.btn-classic:active {
+  background: #1a588a;
+}
 @keyframes diff-in {
   0%{opacity: 0;
     transform:translateY(30px)}
