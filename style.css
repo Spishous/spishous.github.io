@@ -2,19 +2,46 @@ html{
   font-family: sans-serif;
 }
 body{
-  background-color: #151f31;
+  background-color: #0F172A;
   color:#D9D9D9;
   text-align: center;
   min-height: 150vh;
-  font-family: 'Segoe UI Regular';
+  margin: 0;
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+#bg_paralx{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  z-index: -2;
+  background-image: url("public/hero-dark@90.a7a063e8f9d179fbd72b0b735c5797b7.jpg");
+}
+#bg_paralx:before{
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: .5;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(148 163 184 / 0.05)'><path d='M0 .5H31.5V32'/></svg>");
+}
+
+#landing{
+  height: 100vh;
+  position: relative;
+}
+.section {
+  background: #0f172a;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
 }
 
 .content{
   background-color: rgb(30, 41, 59);
   padding: 1.2em;
   margin-bottom: 1em;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(5, 5, 5, 0.4);
+  border-radius: .75rem;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05),0 20px 25px -5px rgba(0, 0, 0, 0.1),0 8px 10px -6px rgba(0, 0, 0, 0.1);
   text-align: left;
   backdrop-filter: blur(5px);
 }
@@ -55,7 +82,7 @@ h1{
 h4{
   margin-top: -5px;
   font-size: 15px;
-  color: #5a93c1;
+  color: #14bff3;
 }
 .content-category {
   display: block;
@@ -69,8 +96,8 @@ h4{
   margin: 0;
 }
 .container {
-  max-width: 1200px;
-  padding: .4em;
+  max-width: 900px;
+  padding: .75rem;
   margin: auto;
 }
 #effect img {
@@ -87,7 +114,7 @@ h4{
   overflow: hidden;
   display: flex;
   justify-content: center;
-  max-height: 91vh;
+  max-height: 100vh;
 }
 [fade-in]{
   transition: opacity 600ms, transform 600ms;
@@ -165,20 +192,25 @@ hr {
   max-width: 100%;
 }
 .btn-classic {
-  background: #22679f;
-  padding: 0.5em 1em;
-  border-radius: 6px;
+  background: #0ea5e9;
+  padding: 0 1.5rem;
+  line-height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: .5rem;
   box-shadow: 0 2px 5px #15151e;
   cursor: pointer;
   transition: background;
   color: white;
   text-decoration: none;
+  font-weight: bold;
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255/.2);
 }
 .btn-classic:hover {
-  background: #2574b5;
+  background: #14bff3;
 }
 .btn-classic:active {
-  background: #1a588a;
+  background: #0c89dc;
 }
 @keyframes diff-in {
   0%{opacity: 0;
